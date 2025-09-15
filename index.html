@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tienda de Computadoras y Componentes — Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">PC</div>
+      <div>
+        <div style="font-weight:800">TechStore</div>
+        <div style="font-size:12px;color:#9b9b9b">Computadoras & Componentes</div>
+      </div>
+    </div>
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Productos</a>
+      <a href="#">Ofertas</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="eyebrow"><div class="smiley">💻</div><div>Bienvenido a</div></div>
+        <h1>Tienda de Computadoras y Componentes</h1>
+        <p class="lead">Encuentra laptops, PCs gamers y los mejores componentes para armar tu equipo a precios increíbles.</p>
+        <a class="cta" href="#">Ver catálogo</a>
+      </div>
+      <div class="hero-visual"></div>
+    </div>
+
+    <!-- Marca de agua -->
+    <img src="img/fon.webp" alt="Marca de agua" class="watermark">
+
+    <div class="divider" aria-hidden="true"></div>
+  </section>
+
+  <section class="products">
+    <div class="products-inner">
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="computadoras">Computadoras</button>
+        <button class="tab" data-tab="componentes">Componentes</button>
+        <button class="tab" data-tab="accesorios">Accesorios</button>
+      </div>
+      <div class="carousel" id="carousel"></div>
+    </div>
+  </section>
+
+  <footer></footer>
+
+  <script>
+    const productos = {
+      computadoras:[
+        {imagen:"img/laptopg.webp",titulo:"Laptop Gamer",sub:"16GB RAM, RTX 4060",precio:"12.000 bs",tag:"Nuevo"},
+        {imagen:"img/pces.png",titulo:"PC Escritorio",sub:"Intel i7, 32GB RAM",precio:"5.000 bs",tag:"Oferta"},
+        {imagen:"img/alin.png",titulo:"All in One",sub:"Pantalla 24'' Full HD",precio:"6.000 bs",tag:"Nuevo"}
+      ],
+      componentes:[
+        {imagen:"img/tjm.jpg",titulo:"Tarjeta Madre",sub:"Chipset Z790",precio:"2.528 bs",tag:"Nuevo"},
+        {imagen:"img/sd.jpg",titulo:"SSD 1TB",sub:"NVMe Gen4",precio:"750 bs",tag:"Oferta"},
+        {imagen:"img/rtx.jpg",titulo:"Tarjeta Gráfica",sub:"RTX 4070 Ti",precio:"8.500 bs",tag:"Nuevo"}
+      ],
+      accesorios:[
+        {imagen:"img/te.jpg",titulo:"Teclado Mecánico",sub:"Switches RGB",precio:"532 bs",tag:"Nuevo"},
+        {imagen:"img/au.png",titulo:"Auriculares Gamer",sub:"Sonido Surround 7.1",precio:"660 bs",tag:"Oferta"},
+        {imagen:"img/mou.jpg",titulo:"Mouse Gamer",sub:"Alta precisión, RGB",precio:"378 bs",tag:"Nuevo"}
+      ]
+    };
+
+    const renderProductos = (sector) => {
+      const container = document.getElementById('carousel');
+      container.innerHTML = '';
+      productos[sector].forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <span class="tag">${p.tag}</span>
+          <div class="product-img"><img src="${p.imagen}" alt="${p.titulo}"></div>
+          <div class="product-title">${p.titulo}</div>
+          <div class="product-sub">${p.sub}</div>
+          <div class="price">${p.precio}</div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Inicializar con computadoras
+    renderProductos('computadoras');
+
+    document.querySelectorAll('.tabs .tab').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll('.tabs .tab').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProductos(btn.dataset.tab);
+      })
+    });
+  </script>
+</body>
+</html>
